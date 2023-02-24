@@ -82,11 +82,7 @@ public class Graph {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj instanceof Graph graph) {
-            return vertices.equals(graph.vertices) && edges.equals(graph.edges);
-        }
-        return false;
+        return obj instanceof Graph that && vertices.equals(that.vertices) && edges.equals(that.edges);
     }
 
     @Override
@@ -95,76 +91,4 @@ public class Graph {
     }
 }
 
-class Edge {
-    private final Vertex source, dest;
-    public Vertex getSource() {
-        return source;
-    }
-    public Vertex getDest() {
-        return dest;
-    }
-    private int weight;
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
-    public int getWeight() {
-        return weight;
-    }
-    public Edge(String source, String dest, int weight) {
-        this.source = new Vertex(source);
-        this.dest = new Vertex(dest);
-        this.weight = weight;
-    }
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj instanceof Edge edge) {
-            return this.source.equals(edge.source) && this.dest.equals(edge.dest) && this.weight == edge.weight;
-        }
-        return false;
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(source, dest, weight);
-    }
-}
-
-class Vertex {
-    private final List<Vertex> neighbours = new ArrayList<>();
-    private String name;
-    public void setName(String name) {
-        this.name = name;
-    }
-    public Vertex(String name) {
-        this.name = name;
-    }
-    public List<String> getNeighbours() {
-        List<String> neighboursNames = new ArrayList<>();
-        neighbours.forEach(vertex -> neighboursNames.add(vertex.getName()));
-        return neighboursNames;
-    }
-    public void addNeighbour(Vertex other) {
-        neighbours.add(other);
-    }
-    public void removeNeighbour(Vertex other) {
-        neighbours.remove(other);
-    }
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj instanceof Vertex vertex) {
-            return this.name.equals(vertex.name);
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
-    }
-}
